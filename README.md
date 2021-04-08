@@ -5,8 +5,8 @@
 This configuration creates:
 
 * A Virtual Private Cloud (VPC) with a size /16 IPv4 CIDR block (example: 10.0.0.0/16). This provides 65,536 private IPv4 addresses.
-* An Internet gateway. This connects the VPC to the Internet and to other AWS services.
-* A public subnet with a size /24 IPv4 CIDR block (example: 10.0.0.0/24). This provides 256 private IPv4 addresses. A public subnet is a subnet that's associated with a route table that has a route to an Internet gateway.
+* An Internet gateway. This connects the VPC to the Internet.
+* A public subnet with a size /24 IPv4 CIDR block (example: 10.0.0.0/24). This provides 256 private IPv4 addresses.
 * A private subnet with a size /24 IPv4 CIDR block (example: 10.0.1.0/24). This provides 256 private IPv4 addresses.
 * Instances in the private subnet running Nginx web server: These instances have private IPv4 addresses.
 * Bastion hosts: EC2 instances in the public subnets that act as a jump server allowing secure connection to the instances deployed in the private subnets.
