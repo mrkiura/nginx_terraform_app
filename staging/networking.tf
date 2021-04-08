@@ -11,7 +11,6 @@ module "networking" {
   environment         = var.environment
   vpc_cidr_block      = var.vpc_cidr_block
   availability_zones  = slice(data.aws_availability_zones.available.names, 0, local.final_count)
-  # availability_zones  = data.aws_availability_zones.available.names
   ami_id              = data.aws_ami.ubuntu.id
   region              = var.region
   key_name            = var.key_name
