@@ -5,22 +5,16 @@
 This configuration creates:
 
 * A Virtual Private Cloud (VPC) with a size /16 IPv4 CIDR block (example: 10.0.0.0/16). This provides 65,536 private IPv4 addresses.
-
 * An Internet gateway. This connects the VPC to the Internet and to other AWS services.
 * A public subnet with a size /24 IPv4 CIDR block (example: 10.0.0.0/24). This provides 256 private IPv4 addresses. A public subnet is a subnet that's associated with a route table that has a route to an Internet gateway.
-
 * A private subnet with a size /24 IPv4 CIDR block (example: 10.0.1.0/24). This provides 256 private IPv4 addresses.
 * Instances in the private subnet running Nginx web server: These instances have private IPv4 addresses.
 * Bastion hosts: EC2 instances in the public subnets that act as a jump server allowing secure connection to the instances deployed in the private subnets.
 * Load balancer: Distributes web trafic between the ec2 instances running nginx in the private subnet.
-
-* A NAT gateway with its own Elastic IPv4 address. Instances in the private subnet can send requests to the Internet through the NAT gateway over IPv4 (for example, for software updates).
-
-* A custom route table associated with the public subnet. This route table contains an entry that enables instances in the subnet to communicate with other instances in the VPC over IPv4, and an entry that enables instances in the subnet to communicate directly with the Internet over IPv4.
-
-* The main route table associated with the private subnet. The route table contains an entry that enables instances in the subnet to communicate with other instances in the VPC over IPv4, and an entry that enables instances in the subnet to communicate with the Internet through the NAT gateway over IPv4.* 
-
-## Security
+* A NAT gateway with its own Elastic IPv4 address.
+* A custom route table associated with the public subnet. 
+* A custom route table associated with the private subnet.
+* Security groups.
 
 ## Setup
 
@@ -67,6 +61,7 @@ cd nginx_terraform_config/staging
 
 ### Create SSH keys
 
+Run the command below to make ssh keys for the staging environment.
 ```bash
 make ssh_key
 ```
@@ -83,11 +78,11 @@ mv example.tfvars terraform.tfvars
 
 The terraform.tfvars file has the following variables:
 
-1. environment. The environment. Like "staging"
+1. environment. The environment. Like "staging".
 2. key_name. The SSH key name.
 3. region: The AWS region to deploy the network.
 4. max_az_count: The number of availability_zones allowed. Defaults to 2.
-5. instance_type. The [instance type](https://aws.amazon.com/ec2/instance-types/) of the AWS instance. Defaults to "t2.micro"
+5. instance_type. The [instance type](https://aws.amazon.com/ec2/instance-types/) of the AWS instance. Defaults to "t2.micro".
 6. aws_access_key.
 7. aws_secret_key.
 
@@ -116,9 +111,17 @@ Apply the changes:
 terraform apply -auto-approve
 ```
 
-After the resources are finished creating, terraform will output the hostname of the load balancer. This is the url we will use to access the nginx servers.
+After the resources are created, terraform will output the hostname of the load balancer as shown below.This is the url we will use to access the nginx instances
 
+<img width="560" alt="Screenshot 2021-04-08 at 11 30 54" src="https://user-images.githubusercontent.com/17288133/113996369-ca671380-985f-11eb-8585-cebf99ff9e3d.png">
 
 ## Testing
+
+Verify that the instances are running by visiting the elb_hostname in the browser. The html page opened should look similar to the one below:
+
+<img width="684" alt="Screenshot 2021-04-08 at 11 49 56" src="https://user-images.githubusercontent.com/17288133/113997365-bcfe5900-9860-11eb-82b4-b6feabe38dc9.png">
+
+The part of the sting after `AZ_` represents the availability zone of the nginx server handling this http request.
+Refresh the page multiple times and see the availability zone changing. This is because the load balancer rotates traffic between the nginx servers in the private subnets.
 
 
