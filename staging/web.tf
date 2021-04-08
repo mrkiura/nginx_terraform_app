@@ -3,7 +3,7 @@ module "web" {
   source             = "../modules/web"
   depends_on         = [module.networking]
   region             = var.region
-  instance_type      = "t2.micro"
+  instance_type      = var.instance_type
   private_subnet_ids = module.networking.private_subnet_ids
   availability_zones = module.networking.availability_zones
   public_subnet_ids  = module.networking.public_subnet_ids
