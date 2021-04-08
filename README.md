@@ -10,7 +10,7 @@ This configuration creates:
 * A private subnet with a size /24 IPv4 CIDR block (example: 10.0.1.0/24). This provides 256 private IPv4 addresses.
 * Instances in the private subnet running Nginx web server: These instances have private IPv4 addresses.
 * Bastion hosts: EC2 instances in the public subnets that act as a jump server allowing secure connection to the instances deployed in the private subnets.
-* Load balancer: Distributes web trafic between the ec2 instances running nginx in the private subnet.
+* Load balancer: Distributes web traffic between the ec2 instances running nginx in the private subnet.
 * A NAT gateway with its own Elastic IPv4 address.
 * A custom route table associated with the public subnet. 
 * A custom route table associated with the private subnet.
