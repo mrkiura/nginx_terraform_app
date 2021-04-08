@@ -53,6 +53,8 @@ nginx_terraform_config
     └── web.tf
 ```
 
+We will test our configuration on the staging environment.
+
 ### Navigate to the `staging` folder
 
 ```bash
