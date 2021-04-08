@@ -8,6 +8,7 @@ variable "max_az_count" {
 
 variable "instance_type" {
   description = "The instance type to launch"
+  default = "t2.micro"
 }
 
 
@@ -16,7 +17,8 @@ variable "vpc_sg_id" {
 }
 
 variable "vpc_cidr_block" {
-  description = "The CIDR block from the VPC"
+  description = "The CIDR block of the VPC"
+  default = "192.168.0.0/16"
 }
 
 variable "key_name" {
