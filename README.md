@@ -12,7 +12,7 @@ This configuration creates:
 * Bastion hosts: EC2 instances in the public subnets that act as a jump server allowing secure connection to the instances deployed in the private subnets.
 * Load balancer: Distributes web traffic between the ec2 instances running nginx in the private subnet.
 * A NAT gateway with its own Elastic IPv4 address.
-* A custom route table associated with the public subnet. 
+* A custom route table associated with the public subnet.
 * A custom route table associated with the private subnet.
 * Security groups.
 
@@ -64,6 +64,7 @@ cd nginx_terraform_config/staging
 ### Create SSH keys
 
 Run the command below to make ssh keys for the staging environment.
+
 ```bash
 make ssh_key
 ```
@@ -87,7 +88,6 @@ The terraform.tfvars file has the following variables:
 5. instance_type. The [instance type](https://aws.amazon.com/ec2/instance-types/) of the AWS instance. Defaults to "t2.micro".
 6. aws_access_key.
 7. aws_secret_key.
-
 
 Open the `terraform.tfvars` file and populate it accordingly.
 
@@ -125,5 +125,3 @@ Verify that the instances are running by visiting the elb_hostname in the browse
 
 The part of the sting after `AZ_` represents the availability zone of the nginx server handling this http request.
 Refresh the page multiple times and see the availability zone changing. This is because the load balancer rotates traffic between the nginx servers in the private subnets.
-
-
