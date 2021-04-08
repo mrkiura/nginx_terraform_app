@@ -168,7 +168,7 @@ resource "aws_instance" "bastion" {
   count                       = length(aws_subnet.public_subnet)
 
   ami                         = var.ami_id
-  instance_type               = "t2.micro"
+  instance_type               = var.instance_type
   key_name                    = var.key_name
   vpc_security_group_ids      = [aws_security_group.bastion.id]
   subnet_id                   = aws_subnet.public_subnet[count.index].id
