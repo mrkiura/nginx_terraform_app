@@ -119,7 +119,9 @@ After the resources are created, terraform will output the hostname of the load 
 
 ## Testing
 
-Verify that the instances are running by visiting the elb_hostname in the browser. The html page opened should look similar to the one below:
+Verify that the instances are running by visiting the elb_hostname in the browser. Confirm that you are requesting the url via http instead of https. 
+
+The html page opened should look similar to the one below:
 
 <img width="684" alt="Screenshot 2021-04-08 at 11 49 56" src="https://user-images.githubusercontent.com/17288133/113997365-bcfe5900-9860-11eb-82b4-b6feabe38dc9.png">
 
